@@ -41,4 +41,10 @@ public class PostsService {
                 .map(PostsListResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    public void delete(Long id) throws IllegalAccessException {
+        Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalAccessException("해당 게시글이 없습니다. id= " + id));
+
+        postsRepository.delete(posts);
+    }
 }

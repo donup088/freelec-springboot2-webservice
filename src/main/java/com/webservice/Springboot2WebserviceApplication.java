@@ -7,9 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @SpringBootApplication
 public class Springboot2WebserviceApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(Springboot2WebserviceApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(Springboot2WebserviceApplication.class, args);
+    }
 }
