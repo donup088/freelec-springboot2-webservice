@@ -1,5 +1,6 @@
 package com.webservice.web.domain.config.auth;
 
+import com.webservice.web.domain.config.auth.dto.OAuthAttributes;
 import com.webservice.web.domain.config.auth.dto.SessionUser;
 import com.webservice.web.domain.user.User;
 import com.webservice.web.domain.user.UserRepository;
@@ -24,7 +25,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2UserService auth2UserService = new DefaultOAuth2UserService();
+        OAuth2UserService<OAuth2UserRequest,OAuth2User> auth2UserService = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = auth2UserService.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
