@@ -10,19 +10,20 @@ cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
+    -
 script: "./gradlew clean build"
 
 before_install:
   - chmod +x gradlew
 # CodeDeploy는 Jar파일을 인식하지 못하므로 Jar+ 기타 설정 파일들을 모아 압축한다.
 before_deploy:
-  - mkdir -p before-deploy
+  - mkdir -p before-deploy # zip에 포함시킬 파일들을 담을 디렉토리 생성
   - cp scripts/*.sh before-deploy/
   - cp appspec.yml before-deploy/
   - cp build/libs/*.jar before-deploy/
-  - cd before-deploy && zip -r before-deploy # before-deploy 로 이동 후 전체 압축
-  - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동 후 deploy로 이동 후 전체 압축
-  - mv before-deploy/before-deploy.zip deploy/freelec-springboot2-webservice.zip
+  - cd before-deploy && zip -r before-deploy * # before-deploy로 이동후 전체 압축
+  - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동후 deploy 디렉토리 생성
+  - mv before-deploy/before-deploy.zip deploy/freelec-springboot2-webservice.zip # deploy로 zip파일 이동
 
 deploy:
   - provider: s3
